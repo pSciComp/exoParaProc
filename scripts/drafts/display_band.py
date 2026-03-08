@@ -108,4 +108,4 @@ for ax in [ax_blue, ax_green, ax_red]:
 
 output_pdf = "data/final/aletsch_multispectral_isolated.png"
 plt.tight_layout()
-plt.savefig(output_pdf, format='pdf', dpi=300)
+plt.savefig(output_pdf, format='png', dpi=300)
