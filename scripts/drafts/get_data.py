@@ -70,7 +70,7 @@ bands = {
 
 # 3. Sequential extraction and writing
 for color, (band_id, url) in bands.items():
-    output_filename = f"aletsch_{color}.tif"
+    output_filename = f"data/interim/aletsch_{color}.tif"
     print(f"Downloading {band_id} ({color}) from {url}...")
     with rasterio.open(url) as src:
         profile = src.profile.copy()
@@ -78,6 +78,6 @@ for color, (band_id, url) in bands.items():
         with rasterio.open(output_filename, "w", **profile) as dst:
             dst.write(src.read(1), 1)
     # compute the normalization parameters
-    generate_stretch_parameters(f"aletsch_{color}.tif", f"aletsch_{color}_params.json")
+    generate_stretch_parameters(f"data/interim/aletsch_{color}.tif", f"data/interim/aletsch_{color}_params.json")
 
 print("Multispectral download complete.")

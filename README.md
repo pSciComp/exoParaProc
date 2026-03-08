@@ -12,8 +12,9 @@ The physical unit is Bottom-of-Atmosphere (BOA) surface reflectance, where a val
 Although values exceeding 10,000 are physically possible due to anisotropic scattering and specular reflection, an absolute upper bound of 10,000 is defined for this implementation.
 To translate these linear reflectance intensities into human-interpretable RGB color spaces and ensure radiometric consistency across independent spatial chunks, the data is clamped at 10,000, normalized, and a non-linear gamma correction is applied to map the reflectance intensities to an 8-bit (0-255) RGB color space (Richards & Jia, 2006).
 
-Consequently, the three discrete spectral arrays must be spatially stacked and radiometrically scaled.
+Consequently, the three discrete spectral arrays must be radiometrically scaled and spatially stacked in order to create a visual image:
 
+[!Illustration](./data/final/aletsch_multispectral_isolated.png)
 
 ## Computational Bottleneck and Parallelization
 
@@ -57,3 +58,4 @@ In distributed compute environments, such as a High-Performance Computing (HPC) 
 
 This project contains various exercises defined under [./exercises](./exercises).
 To get started head over to [Exercise 0](./exercises/Exo_0.md) that will guide you through the initial setup.
+
