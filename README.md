@@ -14,7 +14,7 @@ To translate these linear reflectance intensities into human-interpretable RGB c
 
 Consequently, the three discrete spectral arrays must be radiometrically scaled and spatially stacked in order to create a visual image:
 
-[!Illustration](./data/final/aletsch_multispectral_isolated.png)
+![Illustration](./data/final/aletsch_multispectral_isolated.png)
 
 ## Computational Bottleneck and Parallelization
 
