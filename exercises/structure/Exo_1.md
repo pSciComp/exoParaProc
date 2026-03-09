@@ -1,5 +1,9 @@
 # Structure E1: Parallelization Workflow
 
+> [!WARNING]
+> _⏳ Exercise will be ready by March 13, 2026 ⏳_
+
+
 In a first step we focus on intra-node parallelization written purely in Python.
 ['multiprocessing'](https://docs.python.org/3/library/multiprocessing.html) is Pythons go to library for such implementation of parallelization.
 
