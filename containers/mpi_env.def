@@ -7,12 +7,18 @@ From: ubuntu:24.04
     # MPI execution parameters to suppress container-specific warnings
     export OMPI_MCA_btl_vader_single_copy_mechanism=none
 
+%files
+    # The project repository is copied into the container build context.
+    # Execution of the build command from the repository root is required.
+    . /opt/exopp
+
 %post
     # 1. System Dependency Resolution
     export DEBIAN_FRONTEND=noninteractive
     apt-get update && apt-get install -y --no-install-recommends \
         build-essential \
         wget \
+        git \
         python3 \
         python3-pip \
         python3-dev \
@@ -31,13 +37,11 @@ From: ubuntu:24.04
     # 3. Python Dependency Compilation
     pip install --no-cache-dir --upgrade pip
     
-    # 4. Pipeline Application Dependencies
-    # mpi4py is explicitly included for distributed execution
-    pip install --no-cache-dir \
-        mpi4py \
-        rasterio \
-        numpy \
-        pystac-client
+    # 4. Package Installation via Dependency Group
+    # The application is installed utilizing the optional [mpi] specification.
+    # This automatically resolves mpi4py, rasterio, and base dependencies.
+    cd /opt/exopp
+    pip install --no-cache-dir .[mpi]
 
 %runscript
     # The virtual environment Python interpreter is explicitly invoked
@@ -45,5 +49,5 @@ From: ubuntu:24.04
 
 %labels
     Author Parallel Pipeline Architecture
-    Version 1.0.0
-    Description MPI distributed environment relying exclusively on rasterio.
+    Version 1.0.4
+    Description MPI distributed environment utilizing optional dependency groups.
