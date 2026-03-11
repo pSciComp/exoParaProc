@@ -12,12 +12,12 @@ hist_16bit = np.zeros(65536, dtype=np.int64)
 
 with rasterio.open(input_tif) as src:
     nodata = src.nodata if src.nodata is not None else 0
-    
+
     for _, window in src.block_windows(1):
         data = src.read(1, window=window)
         # Exclude NoData pixels to prevent statistical skew
         valid_data = data[data != nodata]
-        
+
         # Accumulate frequencies; ensure length constraint
         counts = np.bincount(valid_data.ravel(), minlength=65536)
         hist_16bit += counts[:65536]

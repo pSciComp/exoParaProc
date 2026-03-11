@@ -1,0 +1,9 @@
+{
+    "input_files": [
+        "aletsch_red.tif",
+        "aletsch_green.tif",
+        "aletsch_blue.tif"
+    ],
+    "output_file": "rgb.tif",
+    "window_size": 512
+}

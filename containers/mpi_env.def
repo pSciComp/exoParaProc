@@ -1,0 +1,49 @@
+Bootstrap: docker
+From: ubuntu:24.04
+
+%environment
+    export LC_ALL=C
+    export DEBIAN_FRONTEND=noninteractive
+    # MPI execution parameters to suppress container-specific warnings
+    export OMPI_MCA_btl_vader_single_copy_mechanism=none
+
+%post
+    # 1. System Dependency Resolution
+    export DEBIAN_FRONTEND=noninteractive
+    apt-get update && apt-get install -y --no-install-recommends \
+        build-essential \
+        wget \
+        python3 \
+        python3-pip \
+        python3-dev \
+        python3-venv \
+        libopenmpi-dev \
+        openmpi-bin \
+        gdal-bin \
+        libgdal-dev \
+        && apt-get clean \
+        && rm -rf /var/lib/apt/lists/*
+
+    # 2. Virtual Environment Initialization
+    python3 -m venv /opt/venv
+    export PATH="/opt/venv/bin:$PATH"
+
+    # 3. Python Dependency Compilation
+    pip install --no-cache-dir --upgrade pip
+    
+    # 4. Pipeline Application Dependencies
+    # mpi4py is explicitly included for distributed execution
+    pip install --no-cache-dir \
+        mpi4py \
+        rasterio \
+        numpy \
+        pystac-client
+
+%runscript
+    # The virtual environment Python interpreter is explicitly invoked
+    exec /opt/venv/bin/python "$@"
+
+%labels
+    Author Parallel Pipeline Architecture
+    Version 1.0.0
+    Description MPI distributed environment relying exclusively on rasterio.
